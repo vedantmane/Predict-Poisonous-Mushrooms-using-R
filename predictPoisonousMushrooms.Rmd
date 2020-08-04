@@ -1,0 +1,43 @@
+---
+title: "Predict Poisonous Mushrooms using R"
+author: "Vedant Mane"
+date: "August 04, 2020"
+output: html_document
+---
+
+```{r dataset, warning=FALSE, message=FALSE}
+require(datasets)
+require(FFTrees)
+require(randomForest)
+require(ggplot2)
+require(dplyr)
+set.seed(1234)
+head(mushrooms)
+```
+
+```{r explore}
+ggplot(data = mushrooms, aes(poisonous, fill = poisonous)) + geom_bar()
+```
+
+```{r dataSplit}
+rows <- sample(nrow(mushrooms), nrow(mushrooms) * 0.7, replace = FALSE)
+
+train <- mushrooms[rows,]
+test <- mushrooms[-rows,]
+
+```
+
+```{r model}
+model <- FFTrees(poisonous ~ ., data = train)
+model
+```
+```{r modelPlot}
+plot(model)
+plot(model, what = "cues")
+```
+
+```{r predict}
+pred <- predict(model, test)
+table(pred, test$poisonous)
+```
+
