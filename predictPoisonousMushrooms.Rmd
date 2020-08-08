@@ -2,7 +2,9 @@
 title: "Predict Poisonous Mushrooms using R"
 author: "Vedant Mane"
 date: "August 04, 2020"
-output: html_document
+output:
+    html_document:
+        keep_md: true
 ---
 
 ```{r dataset, warning=FALSE, message=FALSE}
